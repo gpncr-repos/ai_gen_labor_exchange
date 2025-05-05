@@ -1,0 +1,577 @@
+{
+  "classes": [
+    {
+      "name": "Applicant",
+      "description": "Aggregate root для соискателя",
+      "is_abstract": false,
+      "is_dataclass": false,
+      "is_pydantic": false,
+      "parent_classes": [
+        "UserBase"
+      ],
+      "methods": [
+        {
+          "name": "__init__",
+          "type": "method",
+          "description": "Initialize self.  See help(type(self)) for accurate signature.",
+          "is_abstract": false,
+          "is_async": false,
+          "is_protected": false,
+          "is_private": false,
+          "is_magic": true,
+          "signature": "(self, id_: uuid.UUID, user_info: models.domain.value_objects.UserInfo)",
+          "parameters": {
+            "id_": {
+              "type": "<class 'uuid.UUID'>",
+              "default": null,
+              "description": ""
+            },
+            "user_info": {
+              "type": "<class 'models.domain.value_objects.UserInfo'>",
+              "default": null,
+              "description": ""
+            }
+          },
+          "raises": [],
+          "source": "    def __init__(self, id_: uuid.UUID, user_info: value_objects.UserInfo):\n        super().__init__(id_, user_info)\n\n        # словарь откликов, содержащий uuid вакансии (entities.Job) и соответствующий список объектов откликов\n        self.responses: dict[uuid.UUID, list[value_objects.Response]] = {}\n",
+          "is_redefined": true,
+          "decorators": []
+        },
+        {
+          "name": "add_response",
+          "type": "method",
+          "description": "Добавить отклик на вакансию",
+          "is_abstract": false,
+          "is_async": false,
+          "is_protected": false,
+          "is_private": false,
+          "is_magic": false,
+          "signature": "(self, job_id: uuid.UUID, response: models.domain.value_objects.Response)",
+          "parameters": {
+            "job_id": {
+              "type": "<class 'uuid.UUID'>",
+              "default": null,
+              "description": ""
+            },
+            "response": {
+              "type": "<class 'models.domain.value_objects.Response'>",
+              "default": null,
+              "description": ""
+            }
+          },
+          "raises": [],
+          "source": "    def add_response(self, job_id: uuid.UUID, response: value_objects.Response):\n        \"\"\"\n        Добавить отклик на вакансию\n        \"\"\"\n\n        self.responses[job_id] = self.responses.get(job_id, [])\n\n        if len(self.responses[job_id]) > 5:\n            raise ValueError(\"Превышен лимит откликов на одну вакансию\")\n\n        self.responses[job_id].append(response)\n",
+          "is_redefined": true,
+          "decorators": []
+        },
+        {
+          "name": "delete_response",
+          "type": "method",
+          "description": "Удалить отклик на вакансию",
+          "is_abstract": false,
+          "is_async": false,
+          "is_protected": false,
+          "is_private": false,
+          "is_magic": false,
+          "signature": "(self, job_id: uuid.UUID, response: models.domain.value_objects.Response)",
+          "parameters": {
+            "job_id": {
+              "type": "<class 'uuid.UUID'>",
+              "default": null,
+              "description": ""
+            },
+            "response": {
+              "type": "<class 'models.domain.value_objects.Response'>",
+              "default": null,
+              "description": ""
+            }
+          },
+          "raises": [],
+          "source": "    def delete_response(self, job_id: uuid.UUID, response: value_objects.Response):\n        \"\"\"\n        Удалить отклик на вакансию\n        \"\"\"\n\n        for response_num, response_ in self.responses[job_id]:\n            if response.message == response_.message:\n                del self.responses[job_id][response_num]\n",
+          "is_redefined": true,
+          "decorators": []
+        }
+      ],
+      "properties": [],
+      "fields": [],
+      "class_variables": []
+    },
+    {
+      "name": "Company",
+      "description": "Aggregate root для компании",
+      "is_abstract": false,
+      "is_dataclass": false,
+      "is_pydantic": false,
+      "parent_classes": [
+        "UserBase"
+      ],
+      "methods": [
+        {
+          "name": "__init__",
+          "type": "method",
+          "description": "Initialize self.  See help(type(self)) for accurate signature.",
+          "is_abstract": false,
+          "is_async": false,
+          "is_protected": false,
+          "is_private": false,
+          "is_magic": true,
+          "signature": "(self, id_: uuid.UUID, user_info: models.domain.value_objects.UserInfo)",
+          "parameters": {
+            "id_": {
+              "type": "<class 'uuid.UUID'>",
+              "default": null,
+              "description": ""
+            },
+            "user_info": {
+              "type": "<class 'models.domain.value_objects.UserInfo'>",
+              "default": null,
+              "description": ""
+            }
+          },
+          "raises": [],
+          "source": "    def __init__(self, id_: uuid.UUID, user_info: value_objects.UserInfo):\n        super().__init__(id_, user_info)\n\n        # словарь вакансий, содержащий uuid вакансии и соответствующий объект вакансии\n        self.jobs: dict[uuid.UUID, entities.Job] = {}\n",
+          "is_redefined": true,
+          "decorators": []
+        },
+        {
+          "name": "activate_job",
+          "type": "method",
+          "description": "Сделать вакансию активной",
+          "is_abstract": false,
+          "is_async": false,
+          "is_protected": false,
+          "is_private": false,
+          "is_magic": false,
+          "signature": "(self, job_id)",
+          "parameters": {
+            "job_id": {
+              "type": "Any",
+              "default": null,
+              "description": ""
+            }
+          },
+          "raises": [],
+          "source": "    def activate_job(self, job_id):\n        \"\"\"\n        Сделать вакансию активной\n        \"\"\"\n\n        self.jobs[job_id].is_active = True\n",
+          "is_redefined": true,
+          "decorators": []
+        },
+        {
+          "name": "add_job",
+          "type": "method",
+          "description": "Добавить вакансию",
+          "is_abstract": false,
+          "is_async": false,
+          "is_protected": false,
+          "is_private": false,
+          "is_magic": false,
+          "signature": "(self, job: models.domain.entities.Job)",
+          "parameters": {
+            "job": {
+              "type": "<class 'models.domain.entities.Job'>",
+              "default": null,
+              "description": ""
+            }
+          },
+          "raises": [],
+          "source": "    def add_job(self, job: entities.Job):\n        \"\"\"\n        Добавить вакансию\n        \"\"\"\n\n        self.jobs[job.id] = job\n",
+          "is_redefined": true,
+          "decorators": []
+        },
+        {
+          "name": "archive_job",
+          "type": "method",
+          "description": "Заархивировать вакансию",
+          "is_abstract": false,
+          "is_async": false,
+          "is_protected": false,
+          "is_private": false,
+          "is_magic": false,
+          "signature": "(self, job_id)",
+          "parameters": {
+            "job_id": {
+              "type": "Any",
+              "default": null,
+              "description": ""
+            }
+          },
+          "raises": [],
+          "source": "    def archive_job(self, job_id):\n        \"\"\"\n        Заархивировать вакансию\n        \"\"\"\n\n        self.jobs[job_id].is_active = False\n",
+          "is_redefined": true,
+          "decorators": []
+        },
+        {
+          "name": "delete_job",
+          "type": "method",
+          "description": "Удалить вакансию",
+          "is_abstract": false,
+          "is_async": false,
+          "is_protected": false,
+          "is_private": false,
+          "is_magic": false,
+          "signature": "(self, job_id: uuid.UUID)",
+          "parameters": {
+            "job_id": {
+              "type": "<class 'uuid.UUID'>",
+              "default": null,
+              "description": ""
+            }
+          },
+          "raises": [],
+          "source": "    def delete_job(self, job_id: uuid.UUID):\n        \"\"\"\n        Удалить вакансию\n        \"\"\"\n\n        del self.jobs[job_id]\n",
+          "is_redefined": true,
+          "decorators": []
+        },
+        {
+          "name": "update_job",
+          "type": "method",
+          "description": "Обновить данные о вакансии\n:param job_id: идентификатор вакансии\n:param updated_job: данные для обновления вакансии",
+          "is_abstract": false,
+          "is_async": false,
+          "is_protected": false,
+          "is_private": false,
+          "is_magic": false,
+          "signature": "(self, job_id: uuid.UUID, updated_job: models.domain.entities.Job) -> None",
+          "parameters": {
+            "job_id": {
+              "type": "<class 'uuid.UUID'>",
+              "default": null,
+              "description": ""
+            },
+            "updated_job": {
+              "type": "<class 'models.domain.entities.Job'>",
+              "default": null,
+              "description": ""
+            }
+          },
+          "raises": [],
+          "source": "    def update_job(self, job_id: uuid.UUID, updated_job: entities.Job) -> None:\n        \"\"\"\n        Обновить данные о вакансии\n        :param job_id: идентификатор вакансии\n        :param updated_job: данные для обновления вакансии\n        \"\"\"\n\n        self.jobs[job_id].update_job(updated_job)\n",
+          "is_redefined": true,
+          "decorators": []
+        }
+      ],
+      "properties": [],
+      "fields": [],
+      "class_variables": []
+    },
+    {
+      "name": "Job",
+      "description": "Entity вакансии",
+      "is_abstract": false,
+      "is_dataclass": false,
+      "is_pydantic": false,
+      "parent_classes": [
+        "DomainEntityObject"
+      ],
+      "methods": [
+        {
+          "name": "__init__",
+          "type": "method",
+          "description": "Initialize self.  See help(type(self)) for accurate signature.",
+          "is_abstract": false,
+          "is_async": false,
+          "is_protected": false,
+          "is_private": false,
+          "is_magic": true,
+          "signature": "(self, id_: 'uuid.UUID', company_id: 'uuid.UUID', description: 'str', salary_from: 'int', salary_to: 'int', is_active: 'bool', created_at: 'datetime.datetime')",
+          "parameters": {
+            "id_": {
+              "type": "uuid.UUID",
+              "default": null,
+              "description": ""
+            },
+            "company_id": {
+              "type": "uuid.UUID",
+              "default": null,
+              "description": ""
+            },
+            "description": {
+              "type": "str",
+              "default": null,
+              "description": ""
+            },
+            "salary_from": {
+              "type": "int",
+              "default": null,
+              "description": ""
+            },
+            "salary_to": {
+              "type": "int",
+              "default": null,
+              "description": ""
+            },
+            "is_active": {
+              "type": "bool",
+              "default": null,
+              "description": ""
+            },
+            "created_at": {
+              "type": "datetime.datetime",
+              "default": null,
+              "description": ""
+            }
+          },
+          "raises": [],
+          "source": "    def __init__(\n        self,\n        id_: uuid.UUID,\n        company_id: uuid.UUID,\n        description: str,\n        salary_from: int,\n        salary_to: int,\n        is_active: bool,\n        created_at: datetime.datetime\n    ):\n        self._validate_salary(salary_from, salary_to)\n\n        self.id = id_\n        self.company_id = company_id\n        self.description = description\n        self.salary_from = salary_from\n        self.salary_to = salary_to\n        self.is_active = is_active\n        self.created_at = created_at\n\n        # словарь откликов, содержащий uuid соискателя (aggragate_root.Applicant) и соответствующий список объектов откликов\n        self.responses: dict[uuid.UUID, list[value_objects.Response]] = {}\n",
+          "is_redefined": true,
+          "decorators": []
+        },
+        {
+          "name": "_validate_salary",
+          "type": "method",
+          "description": "",
+          "is_abstract": false,
+          "is_async": false,
+          "is_protected": true,
+          "is_private": false,
+          "is_magic": false,
+          "signature": "(self, salary_from: 'int', salary_to: 'int')",
+          "parameters": {
+            "salary_from": {
+              "type": "int",
+              "default": null,
+              "description": ""
+            },
+            "salary_to": {
+              "type": "int",
+              "default": null,
+              "description": ""
+            }
+          },
+          "raises": [],
+          "source": "    def _validate_salary(self, salary_from: int, salary_to: int):\n        if salary_from <= 0 or salary_to <= 0:\n            raise ValueError(\"Оклад не может быть отрицательным числом или равняться 0\")\n\n        if salary_from > salary_to:\n            raise ValueError(\"Оклад должен задаваться в виде диапазона\")\n",
+          "is_redefined": true,
+          "decorators": []
+        },
+        {
+          "name": "add_response",
+          "type": "method",
+          "description": "Добавить отклик на вакансию",
+          "is_abstract": false,
+          "is_async": false,
+          "is_protected": false,
+          "is_private": false,
+          "is_magic": false,
+          "signature": "(self, applicant_id: 'uuid.UUID', response: 'value_objects.Response')",
+          "parameters": {
+            "applicant_id": {
+              "type": "uuid.UUID",
+              "default": null,
+              "description": ""
+            },
+            "response": {
+              "type": "value_objects.Response",
+              "default": null,
+              "description": ""
+            }
+          },
+          "raises": [],
+          "source": "    def add_response(self, applicant_id: uuid.UUID, response: value_objects.Response):\n        \"\"\"\n        Добавить отклик на вакансию\n        \"\"\"\n\n        self.responses[applicant_id] = self.responses.get(applicant_id, [])\n        self.responses[applicant_id].append(response)\n",
+          "is_redefined": true,
+          "decorators": []
+        },
+        {
+          "name": "delete_response",
+          "type": "method",
+          "description": "Удалить отклик на вакансию",
+          "is_abstract": false,
+          "is_async": false,
+          "is_protected": false,
+          "is_private": false,
+          "is_magic": false,
+          "signature": "(self, applicant_id: 'uuid.UUID', response: 'value_objects.Response')",
+          "parameters": {
+            "applicant_id": {
+              "type": "uuid.UUID",
+              "default": null,
+              "description": ""
+            },
+            "response": {
+              "type": "value_objects.Response",
+              "default": null,
+              "description": ""
+            }
+          },
+          "raises": [],
+          "source": "    def delete_response(self, applicant_id: uuid.UUID, response: value_objects.Response):\n        \"\"\"\n        Удалить отклик на вакансию\n        \"\"\"\n\n        for response_num, response_ in self.responses[applicant_id]:\n            if response.message == response_.message:\n                del self.responses[applicant_id][response_num]\n",
+          "is_redefined": true,
+          "decorators": []
+        },
+        {
+          "name": "update_job",
+          "type": "method",
+          "description": "Обновить данные о вакансии\n:param updated_job: обновленные данные о вакансии",
+          "is_abstract": false,
+          "is_async": false,
+          "is_protected": false,
+          "is_private": false,
+          "is_magic": false,
+          "signature": "(self, updated_job: 'Job') -> 'None'",
+          "parameters": {
+            "updated_job": {
+              "type": "Job",
+              "default": null,
+              "description": ""
+            }
+          },
+          "raises": [],
+          "source": "    def update_job(self, updated_job: Job) -> None:\n        \"\"\"\n        Обновить данные о вакансии\n        :param updated_job: обновленные данные о вакансии\n        \"\"\"\n\n        self._validate_salary(updated_job.salary_from, updated_job.salary_to)\n\n        self.description = updated_job.description\n        self.salary_from = updated_job.salary_from\n        self.salary_to = updated_job.salary_to\n        self.is_active = updated_job.is_active\n",
+          "is_redefined": true,
+          "decorators": []
+        }
+      ],
+      "properties": [],
+      "fields": [],
+      "class_variables": []
+    },
+    {
+      "name": "Response",
+      "description": "Value object, содержащий данные об отклике",
+      "is_abstract": false,
+      "is_dataclass": true,
+      "is_pydantic": false,
+      "parent_classes": [
+        "DomainValueObject"
+      ],
+      "methods": [
+        {
+          "name": "__eq__",
+          "type": "method",
+          "description": "Return self==value.",
+          "is_abstract": false,
+          "is_async": false,
+          "is_protected": false,
+          "is_private": false,
+          "is_magic": true,
+          "signature": "(self, other)",
+          "parameters": {
+            "other": {
+              "type": "Any",
+              "default": null,
+              "description": ""
+            }
+          },
+          "raises": [],
+          "source": null,
+          "is_redefined": true,
+          "decorators": []
+        },
+        {
+          "name": "__repr__",
+          "type": "method",
+          "description": "Return repr(self).",
+          "is_abstract": false,
+          "is_async": false,
+          "is_protected": false,
+          "is_private": false,
+          "is_magic": true,
+          "signature": "(self)",
+          "parameters": {},
+          "raises": [],
+          "source": null,
+          "is_redefined": true,
+          "decorators": []
+        }
+      ],
+      "properties": [],
+      "fields": [
+        {
+          "name": "message",
+          "type": "<class 'str'>",
+          "default": "<dataclasses._MISSING_TYPE object at 0x0000029A1D06BC50>",
+          "default_factory": "<dataclasses._MISSING_TYPE object at 0x0000029A1D06BC50>",
+          "description": ""
+        }
+      ],
+      "class_variables": []
+    },
+    {
+      "name": "UserInfo",
+      "description": "Value object, содержащий информацию о пользователе",
+      "is_abstract": false,
+      "is_dataclass": true,
+      "is_pydantic": false,
+      "parent_classes": [
+        "DomainValueObject"
+      ],
+      "methods": [
+        {
+          "name": "__eq__",
+          "type": "method",
+          "description": "Return self==value.",
+          "is_abstract": false,
+          "is_async": false,
+          "is_protected": false,
+          "is_private": false,
+          "is_magic": true,
+          "signature": "(self, other)",
+          "parameters": {
+            "other": {
+              "type": "Any",
+              "default": null,
+              "description": ""
+            }
+          },
+          "raises": [],
+          "source": null,
+          "is_redefined": true,
+          "decorators": []
+        },
+        {
+          "name": "__repr__",
+          "type": "method",
+          "description": "Return repr(self).",
+          "is_abstract": false,
+          "is_async": false,
+          "is_protected": false,
+          "is_private": false,
+          "is_magic": true,
+          "signature": "(self)",
+          "parameters": {},
+          "raises": [],
+          "source": null,
+          "is_redefined": true,
+          "decorators": []
+        }
+      ],
+      "properties": [],
+      "fields": [
+        {
+          "name": "email",
+          "type": "<class 'str'>",
+          "default": "<dataclasses._MISSING_TYPE object at 0x0000029A1D06BC50>",
+          "default_factory": "<dataclasses._MISSING_TYPE object at 0x0000029A1D06BC50>",
+          "description": ""
+        },
+        {
+          "name": "name",
+          "type": "<class 'str'>",
+          "default": "<dataclasses._MISSING_TYPE object at 0x0000029A1D06BC50>",
+          "default_factory": "<dataclasses._MISSING_TYPE object at 0x0000029A1D06BC50>",
+          "description": ""
+        },
+        {
+          "name": "hashed_password",
+          "type": "<class 'str'>",
+          "default": "<dataclasses._MISSING_TYPE object at 0x0000029A1D06BC50>",
+          "default_factory": "<dataclasses._MISSING_TYPE object at 0x0000029A1D06BC50>",
+          "description": ""
+        },
+        {
+          "name": "is_company",
+          "type": "<class 'bool'>",
+          "default": "<dataclasses._MISSING_TYPE object at 0x0000029A1D06BC50>",
+          "default_factory": "<dataclasses._MISSING_TYPE object at 0x0000029A1D06BC50>",
+          "description": ""
+        },
+        {
+          "name": "created_at",
+          "type": "<class 'datetime.datetime'>",
+          "default": "<dataclasses._MISSING_TYPE object at 0x0000029A1D06BC50>",
+          "default_factory": "<dataclasses._MISSING_TYPE object at 0x0000029A1D06BC50>",
+          "description": ""
+        }
+      ],
+      "class_variables": []
+    }
+  ]
+}
