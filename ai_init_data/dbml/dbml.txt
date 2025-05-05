@@ -1,0 +1,26 @@
+Table users {
+  id integer [primary key, increment]
+  email varchar [unique, not null]
+  name varchar
+  hashed_password varchar
+  is_company bool
+  created_at datetime
+}
+
+Table jobs {
+  id integer [primary key, increment]
+  user_id integer [ref: > users.id]
+  title varchar
+  description varchar
+  salary_from decimal
+  salary_to decimal
+  is_active bool
+  created_at datetime
+}
+
+Table responses {
+  id integer [primary key, increment]
+  job_id integer [ref: > jobs.id]
+  user_id integer [ref: > users.id]
+  message varchar
+}
