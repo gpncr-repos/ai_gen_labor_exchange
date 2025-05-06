@@ -1,5 +1,5 @@
 Table users {
-  id integer [primary key, increment]
+  id uuid [primary key]
   email varchar [unique, not null]
   name varchar
   hashed_password varchar
@@ -8,8 +8,8 @@ Table users {
 }
 
 Table jobs {
-  id integer [primary key, increment]
-  user_id integer [ref: > users.id]
+  id uuid [primary key]
+  user_id uuid [ref: > users.id]
   title varchar
   description varchar
   salary_from decimal
@@ -19,8 +19,8 @@ Table jobs {
 }
 
 Table responses {
-  id integer [primary key, increment]
-  job_id integer [ref: > jobs.id]
-  user_id integer [ref: > users.id]
+  id uuid [primary key]
+  job_id uuid [ref: > jobs.id]
+  user_id uuid [ref: > users.id]
   message varchar
 }
