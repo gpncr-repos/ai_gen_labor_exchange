@@ -1,0 +1,16 @@
+{
+    "result": [
+        {
+            "filepath": "models/user.py",
+            "code": "from datetime import datetime\nfrom sqlalchemy import String, Integer, Boolean, DateTime, ForeignKey\nfrom sqlalchemy.orm import Mapped, mapped_column, relationship\nfrom interfaces.base_alchemy_model import Base\n\nclass User(Base):\n    __tablename__ = 'users'\n\n    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)\n    email: Mapped[str] = mapped_column(String(255), unique=True, nullable=False)\n    name: Mapped[str | None] = mapped_column(String(255))\n    hashed_password: Mapped[str] = mapped_column(String(255))\n    is_company: Mapped[bool] = mapped_column(Boolean)\n    created_at: Mapped[datetime] = mapped_column(DateTime)\n\n    jobs: Mapped[list['Job']] = relationship(back_populates='user', cascade='all, delete-orphan')\n    responses: Mapped[list['Response']] = relationship(back_populates='user', cascade='all, delete-orphan')"
+        },
+        {
+            "filepath": "models/job.py",
+            "code": "from datetime import datetime\nfrom sqlalchemy import String, Integer, Boolean, DateTime, ForeignKey, DECIMAL\nfrom sqlalchemy.orm import Mapped, mapped_column, relationship\nfrom interfaces.base_alchemy_model import Base\n\nclass Job(Base):\n    __tablename__ = 'jobs'\n\n    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)\n    user_id: Mapped[int] = mapped_column(ForeignKey('users.id'))\n    title: Mapped[str] = mapped_column(String(255))\n    description: Mapped[str] = mapped_column(String(255))\n    salary_from: Mapped[float] = mapped_column(DECIMAL(10, 2))\n    salary_to: Mapped[float] = mapped_column(DECIMAL(10, 2))\n    is_active: Mapped[bool] = mapped_column(Boolean)\n    created_at: Mapped[datetime] = mapped_column(DateTime)\n\n    user: Mapped['User'] = relationship(back_populates='jobs')\n    responses: Mapped[list['Response']] = relationship(back_populates='job', cascade='all, delete-orphan')"
+        },
+        {
+            "filepath": "models/response.py",
+            "code": "from sqlalchemy import String, Integer, ForeignKey\nfrom sqlalchemy.orm import Mapped, mapped_column, relationship\nfrom interfaces.base_alchemy_model import Base\n\nclass Response(Base):\n    __tablename__ = 'responses'\n\n    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)\n    job_id: Mapped[int] = mapped_column(ForeignKey('jobs.id'))\n    user_id: Mapped[int] = mapped_column(ForeignKey('users.id'))\n    message: Mapped[str] = mapped_column(String(255))\n\n    job: Mapped['Job'] = relationship(back_populates='responses')\n    user: Mapped['User'] = relationship(back_populates='responses')"
+        }
+    ]
+}

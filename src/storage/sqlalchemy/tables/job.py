@@ -1,0 +1,24 @@
+from datetime import datetime
+
+from sqlalchemy import DECIMAL, Boolean, DateTime, ForeignKey, Integer, String
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+
+from interfaces.base_alchemy_model import Base
+
+
+class Job(Base):
+    __tablename__ = "jobs"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    user_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
+    title: Mapped[str] = mapped_column(String(255))
+    description: Mapped[str] = mapped_column(String(255))
+    salary_from: Mapped[float] = mapped_column(DECIMAL(10, 2))
+    salary_to: Mapped[float] = mapped_column(DECIMAL(10, 2))
+    is_active: Mapped[bool] = mapped_column(Boolean)
+    created_at: Mapped[datetime] = mapped_column(DateTime)
+
+    user: Mapped["User"] = relationship(back_populates="jobs")  # noqa
+    responses: Mapped[list["Response"]] = relationship(  # noqa
+        back_populates="job", cascade="all, delete-orphan"
+    )
