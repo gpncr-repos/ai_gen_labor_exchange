@@ -1,0 +1,266 @@
+{
+  "classes": [
+    {
+      "name": "BaseAlchemyRepository",
+      "description": "Базовый класс репозитория для Алхимии",
+      "is_abstract": false,
+      "is_dataclass": false,
+      "is_pydantic": false,
+      "parent_classes": [
+        "BaseRepository"
+      ],
+      "methods": [
+        {
+          "name": "__init__",
+          "type": "method",
+          "description": "Инициализировать переменные\n:param connection_proxy_: объект прокси-соединения",
+          "is_abstract": false,
+          "is_async": false,
+          "is_protected": false,
+          "is_private": false,
+          "is_magic": true,
+          "signature": "(self, connection_proxy_: storage.sqlalchemy.connection_proxy.AlchemyConnectionProxyBase) -> None",
+          "parameters": {
+            "connection_proxy_": {
+              "type": "<class 'storage.sqlalchemy.connection_proxy.AlchemyConnectionProxyBase'>",
+              "default": null,
+              "description": ""
+            }
+          },
+          "raises": [],
+          "source": "    def __init__(self, connection_proxy_: connection_proxy.AlchemyConnectionProxyBase) -> None:\n        \"\"\"\n        Инициализировать переменные\n        :param connection_proxy_: объект прокси-соединения\n        \"\"\"\n\n        self.connection_proxy = connection_proxy_\n",
+          "is_redefined": true,
+          "decorators": []
+        },
+        {
+          "name": "create",
+          "type": "method",
+          "description": "Создать запись",
+          "is_abstract": false,
+          "is_async": false,
+          "is_protected": false,
+          "is_private": false,
+          "is_magic": false,
+          "signature": "(self, *args, **kwargs) -> None",
+          "parameters": {
+            "args": {
+              "type": "Any",
+              "default": null,
+              "description": ""
+            },
+            "kwargs": {
+              "type": "Any",
+              "default": null,
+              "description": ""
+            }
+          },
+          "raises": [],
+          "source": "    def create(self, *args, **kwargs) -> None:\n        \"\"\"\n        Создать запись\n        \"\"\"\n\n        return super().create()\n",
+          "is_redefined": true,
+          "decorators": []
+        },
+        {
+          "name": "delete",
+          "type": "method",
+          "description": "Удалить запись",
+          "is_abstract": false,
+          "is_async": false,
+          "is_protected": false,
+          "is_private": false,
+          "is_magic": false,
+          "signature": "(self, *args, **kwargs) -> <built-in function any>",
+          "parameters": {
+            "args": {
+              "type": "Any",
+              "default": null,
+              "description": ""
+            },
+            "kwargs": {
+              "type": "Any",
+              "default": null,
+              "description": ""
+            }
+          },
+          "raises": [],
+          "source": "    def delete(self, *args, **kwargs) -> any:\n        \"\"\"\n        Удалить запись\n        \"\"\"\n\n        return super().create()\n",
+          "is_redefined": true,
+          "decorators": []
+        },
+        {
+          "name": "list",
+          "type": "method",
+          "description": "Получить список записей",
+          "is_abstract": false,
+          "is_async": false,
+          "is_protected": false,
+          "is_private": false,
+          "is_magic": false,
+          "signature": "(self, *args, **kwargs) -> Iterable[<built-in function any>]",
+          "parameters": {
+            "args": {
+              "type": "Any",
+              "default": null,
+              "description": ""
+            },
+            "kwargs": {
+              "type": "Any",
+              "default": null,
+              "description": ""
+            }
+          },
+          "raises": [],
+          "source": "    def list(self, *args, **kwargs) -> Iterable[any]:\n        \"\"\"\n        Получить список записей\n        \"\"\"\n\n        return super().create()\n",
+          "is_redefined": true,
+          "decorators": []
+        },
+        {
+          "name": "retrieve",
+          "type": "method",
+          "description": "Получить запись",
+          "is_abstract": false,
+          "is_async": false,
+          "is_protected": false,
+          "is_private": false,
+          "is_magic": false,
+          "signature": "(self, *args, **kwargs) -> <built-in function any>",
+          "parameters": {
+            "args": {
+              "type": "Any",
+              "default": null,
+              "description": ""
+            },
+            "kwargs": {
+              "type": "Any",
+              "default": null,
+              "description": ""
+            }
+          },
+          "raises": [],
+          "source": "    def retrieve(self, *args, **kwargs) -> any:\n        \"\"\"\n        Получить запись\n        \"\"\"\n\n        return super().create()\n",
+          "is_redefined": true,
+          "decorators": []
+        },
+        {
+          "name": "update",
+          "type": "method",
+          "description": "Обновить запись",
+          "is_abstract": false,
+          "is_async": false,
+          "is_protected": false,
+          "is_private": false,
+          "is_magic": false,
+          "signature": "(self, *args, **kwargs) -> <built-in function any>",
+          "parameters": {
+            "args": {
+              "type": "Any",
+              "default": null,
+              "description": ""
+            },
+            "kwargs": {
+              "type": "Any",
+              "default": null,
+              "description": ""
+            }
+          },
+          "raises": [],
+          "source": "    def update(self, *args, **kwargs) -> any:\n        \"\"\"\n        Обновить запись\n        \"\"\"\n\n        return super().create()\n",
+          "is_redefined": true,
+          "decorators": []
+        }
+      ],
+      "properties": [],
+      "fields": [],
+      "class_variables": []
+    },
+    {
+      "name": "AlchemyAsyncConnectionProxy",
+      "description": "Асинхронное прокси-соединение для Алхимии",
+      "is_abstract": false,
+      "is_dataclass": false,
+      "is_pydantic": false,
+      "parent_classes": [
+        "AlchemyConnectionProxyBase"
+      ],
+      "methods": [
+        {
+          "name": "_connect",
+          "type": "method",
+          "description": "Установить соединение с БД в рамках HTTP-сессии",
+          "is_abstract": false,
+          "is_async": false,
+          "is_protected": true,
+          "is_private": false,
+          "is_magic": false,
+          "signature": "(engine: sqlalchemy.ext.asyncio.engine.AsyncEngine) -> None",
+          "parameters": {
+            "engine": {
+              "type": "<class 'sqlalchemy.ext.asyncio.engine.AsyncEngine'>",
+              "default": null,
+              "description": ""
+            }
+          },
+          "raises": [],
+          "source": "    @classmethod\n    def _connect(cls, engine: AsyncEngine) -> None:\n        \"\"\"\n        Установить соединение с БД в рамках HTTP-сессии\n        \"\"\"\n\n        if cls._session_maker is None:\n            cls._session_maker = sessionmaker(  # noqa\n                autocommit=False,\n                autoflush=False,\n                bind=engine,\n                class_=AsyncSession,\n                expire_on_commit=False,\n            )\n\n        if cls._session is None:\n            cls._session = cls._session_maker()\n",
+          "is_redefined": true,
+          "decorators": [
+            "classmethod"
+          ]
+        },
+        {
+          "name": "connect",
+          "type": "method",
+          "description": "Получить сессию БД\n:return: асинхронная сессия",
+          "is_abstract": false,
+          "is_async": false,
+          "is_protected": false,
+          "is_private": false,
+          "is_magic": false,
+          "signature": "(self) -> sqlalchemy.ext.asyncio.session.AsyncSession",
+          "parameters": {},
+          "raises": [],
+          "source": "    def connect(self) -> AsyncSession:\n        \"\"\"\n        Получить сессию БД\n        :return: асинхронная сессия\n        \"\"\"\n\n        self._connect(self._engine)\n\n        return self._session\n",
+          "is_redefined": true,
+          "decorators": []
+        },
+        {
+          "name": "disconnect",
+          "type": "method",
+          "description": "Разорвать соединение с БД",
+          "is_abstract": false,
+          "is_async": true,
+          "is_protected": false,
+          "is_private": false,
+          "is_magic": false,
+          "signature": "(self) -> None",
+          "parameters": {},
+          "raises": [],
+          "source": "    async def disconnect(self) -> None:\n        \"\"\"\n        Разорвать соединение с БД\n        \"\"\"\n\n        if self._session:\n            await self._session.close()\n            self._session = None\n\n        self._session_maker = None\n",
+          "is_redefined": true,
+          "decorators": []
+        }
+      ],
+      "properties": [],
+      "fields": [],
+      "class_variables": [
+        {
+          "name": "_session_maker",
+          "type": "sqlalchemy.orm.session.sessionmaker | None",
+          "value": "None",
+          "description": "",
+          "is_protected": true,
+          "is_private": false,
+          "is_redefined": false
+        },
+        {
+          "name": "_session",
+          "type": "sqlalchemy.ext.asyncio.session.AsyncSession | None",
+          "value": "None",
+          "description": "",
+          "is_protected": true,
+          "is_private": false,
+          "is_redefined": false
+        }
+      ]
+    }
+  ]
+}

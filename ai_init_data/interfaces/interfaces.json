@@ -1,0 +1,275 @@
+{
+  "classes": [
+    {
+      "name": "DomainValueObject",
+      "description": "Базовый класс для value object домена",
+      "is_abstract": true,
+      "is_dataclass": false,
+      "is_pydantic": false,
+      "parent_classes": [
+        "ABC"
+      ],
+      "methods": [],
+      "properties": [],
+      "fields": [],
+      "class_variables": []
+    },
+    {
+      "name": "DomainAggregate",
+      "description": "Базовый класс агрегата",
+      "is_abstract": true,
+      "is_dataclass": false,
+      "is_pydantic": false,
+      "parent_classes": [
+        "ABC"
+      ],
+      "methods": [],
+      "properties": [],
+      "fields": [],
+      "class_variables": []
+    },
+    {
+      "name": "DomainEntityObject",
+      "description": "Базовый класс для entity домена",
+      "is_abstract": true,
+      "is_dataclass": false,
+      "is_pydantic": false,
+      "parent_classes": [
+        "ABC"
+      ],
+      "methods": [],
+      "properties": [],
+      "fields": [],
+      "class_variables": []
+    },
+    {
+      "name": "BaseRepository",
+      "description": "Базовый класс репозитория",
+      "is_abstract": true,
+      "is_dataclass": false,
+      "is_pydantic": false,
+      "parent_classes": [
+        "ABC"
+      ],
+      "methods": [
+        {
+          "name": "create",
+          "type": "method",
+          "description": "Создать запись",
+          "is_abstract": true,
+          "is_async": false,
+          "is_protected": false,
+          "is_private": false,
+          "is_magic": false,
+          "signature": "(self, *args, **kwargs) -> <built-in function any>",
+          "parameters": {
+            "args": {
+              "type": "Any",
+              "default": null,
+              "description": ""
+            },
+            "kwargs": {
+              "type": "Any",
+              "default": null,
+              "description": ""
+            }
+          },
+          "raises": [],
+          "source": "    @abc.abstractmethod\n    def create(self, *args, **kwargs) -> any:\n        \"\"\"\n        Создать запись\n        \"\"\"\n\n        raise NotImplementedError\n",
+          "is_redefined": true,
+          "decorators": [
+            "abstractmethod"
+          ]
+        },
+        {
+          "name": "delete",
+          "type": "method",
+          "description": "Удалить запись",
+          "is_abstract": true,
+          "is_async": false,
+          "is_protected": false,
+          "is_private": false,
+          "is_magic": false,
+          "signature": "(self, *args, **kwargs) -> <built-in function any>",
+          "parameters": {
+            "args": {
+              "type": "Any",
+              "default": null,
+              "description": ""
+            },
+            "kwargs": {
+              "type": "Any",
+              "default": null,
+              "description": ""
+            }
+          },
+          "raises": [],
+          "source": "    @abc.abstractmethod\n    def delete(self, *args, **kwargs) -> any:\n        \"\"\"\n        Удалить запись\n        \"\"\"\n\n        raise NotImplementedError\n",
+          "is_redefined": true,
+          "decorators": [
+            "abstractmethod"
+          ]
+        },
+        {
+          "name": "list",
+          "type": "method",
+          "description": "Получить список записей",
+          "is_abstract": true,
+          "is_async": false,
+          "is_protected": false,
+          "is_private": false,
+          "is_magic": false,
+          "signature": "(self, *args, **kwargs) -> Iterable[<built-in function any>]",
+          "parameters": {
+            "args": {
+              "type": "Any",
+              "default": null,
+              "description": ""
+            },
+            "kwargs": {
+              "type": "Any",
+              "default": null,
+              "description": ""
+            }
+          },
+          "raises": [],
+          "source": "    @abc.abstractmethod\n    def list(self, *args, **kwargs) -> Iterable[any]:\n        \"\"\"\n        Получить список записей\n        \"\"\"\n\n        raise NotImplementedError\n",
+          "is_redefined": true,
+          "decorators": [
+            "abstractmethod"
+          ]
+        },
+        {
+          "name": "retrieve",
+          "type": "method",
+          "description": "Получить запись",
+          "is_abstract": true,
+          "is_async": false,
+          "is_protected": false,
+          "is_private": false,
+          "is_magic": false,
+          "signature": "(self, *args, **kwargs) -> <built-in function any>",
+          "parameters": {
+            "args": {
+              "type": "Any",
+              "default": null,
+              "description": ""
+            },
+            "kwargs": {
+              "type": "Any",
+              "default": null,
+              "description": ""
+            }
+          },
+          "raises": [],
+          "source": "    @abc.abstractmethod\n    def retrieve(self, *args, **kwargs) -> any:\n        \"\"\"\n        Получить запись\n        \"\"\"\n\n        raise NotImplementedError\n",
+          "is_redefined": true,
+          "decorators": [
+            "abstractmethod"
+          ]
+        },
+        {
+          "name": "update",
+          "type": "method",
+          "description": "Обновить запись",
+          "is_abstract": true,
+          "is_async": false,
+          "is_protected": false,
+          "is_private": false,
+          "is_magic": false,
+          "signature": "(self, *args, **kwargs) -> <built-in function any>",
+          "parameters": {
+            "args": {
+              "type": "Any",
+              "default": null,
+              "description": ""
+            },
+            "kwargs": {
+              "type": "Any",
+              "default": null,
+              "description": ""
+            }
+          },
+          "raises": [],
+          "source": "    @abc.abstractmethod\n    def update(self, *args, **kwargs) -> any:\n        \"\"\"\n        Обновить запись\n        \"\"\"\n\n        raise NotImplementedError\n",
+          "is_redefined": true,
+          "decorators": [
+            "abstractmethod"
+          ]
+        }
+      ],
+      "properties": [],
+      "fields": [],
+      "class_variables": []
+    },
+    {
+      "name": "ConnectionProxy",
+      "description": "Proxy для подключения к удаленным ресурсам",
+      "is_abstract": true,
+      "is_dataclass": false,
+      "is_pydantic": false,
+      "parent_classes": [
+        "ABC"
+      ],
+      "methods": [
+        {
+          "name": "connect",
+          "type": "method",
+          "description": "Подключиться к ресурсу",
+          "is_abstract": true,
+          "is_async": true,
+          "is_protected": false,
+          "is_private": false,
+          "is_magic": false,
+          "signature": "(self, *args, **kwargs) -> <built-in function any>",
+          "parameters": {
+            "args": {
+              "type": "Any",
+              "default": null,
+              "description": ""
+            },
+            "kwargs": {
+              "type": "Any",
+              "default": null,
+              "description": ""
+            }
+          },
+          "raises": [],
+          "source": "    @abc.abstractmethod\n    async def connect(self, *args, **kwargs) -> any:\n        \"\"\"\n        Подключиться к ресурсу\n        \"\"\"\n\n        raise NotImplementedError\n",
+          "is_redefined": true,
+          "decorators": []
+        },
+        {
+          "name": "disconnect",
+          "type": "method",
+          "description": "Отключиться от ресурса",
+          "is_abstract": true,
+          "is_async": true,
+          "is_protected": false,
+          "is_private": false,
+          "is_magic": false,
+          "signature": "(self, *args, **kwargs) -> <built-in function any>",
+          "parameters": {
+            "args": {
+              "type": "Any",
+              "default": null,
+              "description": ""
+            },
+            "kwargs": {
+              "type": "Any",
+              "default": null,
+              "description": ""
+            }
+          },
+          "raises": [],
+          "source": "    @abc.abstractmethod\n    async def disconnect(self, *args, **kwargs) -> any:\n        \"\"\"\n        Отключиться от ресурса\n        \"\"\"\n\n        raise NotImplementedError\n",
+          "is_redefined": true,
+          "decorators": []
+        }
+      ],
+      "properties": [],
+      "fields": [],
+      "class_variables": []
+    }
+  ]
+}
