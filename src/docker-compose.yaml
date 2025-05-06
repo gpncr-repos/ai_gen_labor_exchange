@@ -1,22 +1,37 @@
 version: '3'
+
 services:
   labor-exchange.backend:
     build:
       context: .
       dockerfile: Dockerfile
     ports:
-    - ${APP_PORT}:8000
+      - ${APP_PORT}:8000
     env_file:
-    - ./.env
+      - ./.env
+
   labor-exchange.postgres:
     image: postgres:latest
     hostname: labor-exchange.postgres
     container_name: labor-exchange.postgres
     ports:
-    - ${POSTGRES_PORT}:5432
+      - ${POSTGRES_PORT}:5432
     volumes:
-    - pgdata:/var/lib/postgresql/data
+      - pgdata:/var/lib/postgresql/data
     env_file:
-    - ./.env
+      - ./.env
+
+  labor-exchange.postgres-test:
+    image: postgres:latest
+    hostname: labor-exchange.postgres-test
+    container_name: labor-exchange.postgres-test
+    volumes:
+      - pgdata-test:/var/lib/postgresql/data
+    env_file:
+      - ./.env.test
+    ports:
+      - ${POSTGRES_PORT}:5432
+
 volumes:
   pgdata:
+  pgdata-test:
